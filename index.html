@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zhander Labs</title>
+
+  <style>
+    :root {
+      --bg: #f7f7f2;
+      --text: #101010;
+      --muted: #666;
+      --line: #d9d9d0;
+      --accent: #00bcd4;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 10;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 22px 7vw;
+      background: rgba(247, 247, 242, 0.82);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      font-size: 14px;
+    }
+
+    .mark {
+      width: 34px;
+      height: 34px;
+      border: 2px solid var(--text);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: -0.08em;
+    }
+
+    nav a {
+      margin-left: 28px;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    section {
+      min-height: 100vh;
+      padding: 120px 7vw 70px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .hero {
+      max-width: 900px;
+    }
+
+    .eyebrow {
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    h1 {
+      font-size: clamp(48px, 9vw, 120px);
+      line-height: 0.9;
+      margin: 0;
+      letter-spacing: -0.07em;
+    }
+
+    h2 {
+      font-size: clamp(34px, 5vw, 72px);
+      line-height: 1;
+      margin: 0 0 24px;
+      letter-spacing: -0.05em;
+    }
+
+    p {
+      max-width: 680px;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.7;
+      margin: 28px 0 0;
+    }
+
+    .status {
+      margin-top: 42px;
+      display: inline-flex;
+      width: fit-content;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      border: 1px solid var(--text);
+      border-radius: 999px;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 18px;
+      margin-top: 40px;
+      max-width: 1000px;
+    }
+
+    .card {
+      border: 1px solid var(--text);
+      padding: 24px;
+      min-height: 190px;
+      background: rgba(255, 255, 255, 0.35);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 10px 10px 0 var(--text);
+    }
+
+    .code {
+      font-size: 13px;
+      color: var(--accent);
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      margin-bottom: 18px;
+    }
+
+    .card h3 {
+      margin: 0;
+      font-size: 22px;
+      letter-spacing: -0.03em;
+    }
+
+    .card p {
+      font-size: 15px;
+      line-height: 1.6;
+      margin-top: 18px;
+    }
+
+    footer {
+      padding: 40px 7vw;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .fade {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .fade.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 720px) {
+      header {
+        padding: 18px 6vw;
+      }
+
+      nav {
+        display: none;
+      }
+
+      section {
+        padding: 110px 6vw 60px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="brand">
+      <div class="mark">ZL</div>
+      <span>ZHANDER LABS</span>
+    </div>
+
+    <nav>
+      <a href="#projects">Projects</a>
+      <a href="#devlog">Devlog</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section>
+    <div class="hero fade">
+      <div class="eyebrow">Electronics modules in development</div>
+      <h1>ZHANDER<br>LABS</h1>
+      <p>
+        Compact electronics modules and kits for robotics, sensing, and measurement.
+        Built for student projects, prototypes, and stubborn hardware ideas that deserve
+        better than generic boards.
+      </p>
+
+      <div class="status">
+        <span class="dot"></span>
+        Currently prototyping
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="fade">
+      <div class="eyebrow">Project directions</div>
+      <h2>Small boards. Serious behavior.</h2>
+      <p>
+        Zhander Labs is starting with practical modules that are affordable enough
+        to build, but advanced enough to be useful in real projects.
+      </p>
+
+      <div class="grid">
+        <div class="card">
+          <div class="code">ZL-MD01</div>
+          <h3>I2C Motor Driver</h3>
+          <p>Tiny motor control module for robotics kits, small mechanisms, and educational control systems.</p>
+        </div>
+
+        <div class="card">
+          <div class="code">ZL-TIA01</div>
+          <h3>Photodiode Amplifier</h3>
+          <p>Optical sensing front-end for experiments involving light, turbidity, color, and biological samples.</p>
+        </div>
+
+        <div class="card">
+          <div class="code">ZL-SUMO01</div>
+          <h3>PCB Robot Kit</h3>
+          <p>A solder-it-yourself micro robot kit using the PCB as both circuit and structure.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="devlog">
+    <div class="fade">
+      <div class="eyebrow">Development log</div>
+      <h2>Built in public, but not loudly.</h2>
+      <p>
+        Design notes, prototype tests, failures, revisions, and module progress will be posted here.
+        Not a store yet. Not vaporware either. Somewhere between those two, where actual work happens.
+      </p>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="fade">
+      <div class="eyebrow">Contact</div>
+      <h2>For projects, modules, and early feedback.</h2>
+      <p>
+        Zhander Labs is currently in development. Product pages, documentation,
+        and ordering links will be added once prototypes are ready.
+      </p>
+    </div>
+  </section>
+
+  <footer>
+    © 2026 Zhander Labs. All rights reserved.
+  </footer>
+
+  <script>
+    const fadeElements = document.querySelectorAll(".fade");
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    }, {
+      threshold: 0.2
+    });
+
+    fadeElements.forEach(element => observer.observe(element));
+  </script>
+</body>
+</html>
