@@ -858,42 +858,51 @@
     const header = document.querySelector("header");
     const orb = document.querySelector(".orb");
     const techStrip = document.querySelector(".tech-strip");
-    const fadeElements = document.querySelectorAll(".fade, .card, .log-item");
+    const animatedElements = document.querySelectorAll(".fade, .card, .log-item");
   
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
+        const element = entry.target;
+  
         if (entry.isIntersecting) {
-          const index = [...fadeElements].indexOf(entry.target);
-          entry.target.style.transitionDelay = `${Math.min(index * 60, 240)}ms`;
-          entry.target.classList.add("visible");
+          const group = [...animatedElements].filter(item => {
+            return item.getBoundingClientRect().top >= 0;
+          });
+  
+          const index = group.indexOf(element);
+          element.style.transitionDelay = `${Math.max(index, 0) * 70}ms`;
+          element.classList.add("visible");
+        } else {
+          element.style.transitionDelay = "0ms";
+          element.classList.remove("visible");
         }
       });
     }, {
-      threshold: 0.18
+      threshold: 0.18,
+      rootMargin: "0px 0px -8% 0px"
     });
   
-    fadeElements.forEach(element => observer.observe(element));
+    animatedElements.forEach(element => observer.observe(element));
   
-    let latestScroll = 0;
     let ticking = false;
   
     function updateScrollEffects() {
-      latestScroll = window.scrollY;
+      const scrollY = window.scrollY;
   
-      if (latestScroll > 40) {
+      if (scrollY > 40) {
         header.classList.add("compact");
       } else {
         header.classList.remove("compact");
       }
   
       if (orb) {
-        const movement = Math.min(latestScroll * 0.12, 70);
-        const rotate = Math.min(latestScroll * 0.025, 18);
+        const movement = Math.sin(scrollY * 0.006) * 18;
+        const rotate = scrollY * 0.035;
         orb.style.transform = `translateY(${movement}px) rotate(${rotate}deg)`;
       }
   
       if (techStrip) {
-        const stripMove = Math.min(latestScroll * 0.08, 36);
+        const stripMove = Math.sin(scrollY * 0.004) * 10;
         techStrip.style.transform = `translateY(${stripMove}px)`;
       }
   
