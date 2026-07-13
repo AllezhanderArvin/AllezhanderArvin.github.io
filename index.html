@@ -583,8 +583,48 @@
 
     .fade {
       opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.75s ease, transform 0.75s ease;
+      transform: translateY(46px);
+      transition: opacity 0.9s ease, transform 0.9s ease;
+    }
+    
+    .fade.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    header.compact {
+      height: 70px;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+    }
+    
+    header.compact .mini-mark {
+      transform: scale(0.86);
+    }
+    
+    header.compact .brand-name {
+      letter-spacing: 0.24em;
+    }
+    
+    .mini-mark,
+    .brand-name,
+    .orb,
+    .tech-strip,
+    .card,
+    .log-item {
+      will-change: transform;
+    }
+    
+    .card,
+    .log-item {
+      opacity: 0;
+      transform: translateY(34px);
+      transition: opacity 0.75s ease, transform 0.75s ease, box-shadow 0.25s ease;
+    }
+    
+    .card.visible,
+    .log-item.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .fade.visible {
@@ -815,19 +855,59 @@
   </footer>
 
   <script>
-    const fadeElements = document.querySelectorAll(".fade");
-
+    const header = document.querySelector("header");
+    const orb = document.querySelector(".orb");
+    const techStrip = document.querySelector(".tech-strip");
+    const fadeElements = document.querySelectorAll(".fade, .card, .log-item");
+  
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
+          const index = [...fadeElements].indexOf(entry.target);
+          entry.target.style.transitionDelay = `${Math.min(index * 60, 240)}ms`;
           entry.target.classList.add("visible");
         }
       });
     }, {
       threshold: 0.18
     });
-
+  
     fadeElements.forEach(element => observer.observe(element));
+  
+    let latestScroll = 0;
+    let ticking = false;
+  
+    function updateScrollEffects() {
+      latestScroll = window.scrollY;
+  
+      if (latestScroll > 40) {
+        header.classList.add("compact");
+      } else {
+        header.classList.remove("compact");
+      }
+  
+      if (orb) {
+        const movement = Math.min(latestScroll * 0.12, 70);
+        const rotate = Math.min(latestScroll * 0.025, 18);
+        orb.style.transform = `translateY(${movement}px) rotate(${rotate}deg)`;
+      }
+  
+      if (techStrip) {
+        const stripMove = Math.min(latestScroll * 0.08, 36);
+        techStrip.style.transform = `translateY(${stripMove}px)`;
+      }
+  
+      ticking = false;
+    }
+  
+    window.addEventListener("scroll", () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateScrollEffects);
+        ticking = true;
+      }
+    });
+  
+    updateScrollEffects();
   </script>
 </body>
 </html>
