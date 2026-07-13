@@ -123,11 +123,50 @@
     }
 
     .hero {
+      position: relative;
+      overflow: hidden;
       display: grid;
       grid-template-columns: 1.05fr 0.95fr;
       align-items: center;
       gap: 56px;
     }
+    
+    .hero::before {
+      content: "";
+      position: absolute;
+      left: 6vw;
+      bottom: 120px;
+      width: 230px;
+      height: 40px;
+      opacity: 0.38;
+      pointer-events: none;
+      background:
+        radial-gradient(circle, var(--bg) 0 5px, var(--text) 6px 7px, transparent 8px) 0 16px / 16px 16px no-repeat,
+        linear-gradient(var(--text), var(--text)) 12px 23px / 68px 2px no-repeat,
+        linear-gradient(var(--text), var(--text)) 78px 7px / 2px 18px no-repeat,
+        linear-gradient(var(--text), var(--text)) 78px 7px / 74px 2px no-repeat,
+        radial-gradient(circle, var(--bg) 0 5px, var(--text) 6px 7px, transparent 8px) 146px 0 / 16px 16px no-repeat,
+        linear-gradient(var(--text), var(--text)) 160px 7px / 54px 2px no-repeat,
+        radial-gradient(circle, var(--bg) 0 5px, var(--text) 6px 7px, transparent 8px) 210px 0 / 16px 16px no-repeat;
+    }
+    
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: 8vw;
+      top: 150px;
+      width: 150px;
+      height: 34px;
+      opacity: 0.26;
+      pointer-events: none;
+      background:
+        radial-gradient(circle, var(--bg) 0 4px, var(--accent) 5px 6px, transparent 7px) 0 10px / 14px 14px no-repeat,
+        linear-gradient(var(--accent), var(--accent)) 10px 16px / 56px 2px no-repeat,
+        linear-gradient(var(--accent), var(--accent)) 64px 16px / 2px 14px no-repeat,
+        linear-gradient(var(--accent), var(--accent)) 64px 28px / 54px 2px no-repeat,
+        radial-gradient(circle, var(--bg) 0 4px, var(--accent) 5px 6px, transparent 7px) 114px 22px / 14px 14px no-repeat;
+    }
+    
 
     .eyebrow {
       color: var(--accent);
@@ -164,6 +203,8 @@
     }
 
     .hero-copy {
+      position: relative;
+      z-index: 1;
       max-width: 840px;
     }
 
@@ -197,6 +238,8 @@
     }
 
     .visual-panel {
+      position: relative;
+      z-index: 1;
       min-height: 560px;
       display: grid;
       place-items: center;
@@ -235,6 +278,7 @@
     }
 
     .tech-strip {
+      z-index: 2;
       position: absolute;
       left: 6vw;
       right: 6vw;
