@@ -230,77 +230,32 @@
     .orb {
       width: min(430px, 78vw);
       aspect-ratio: 1 / 1;
-      border-radius: 50%;
       position: relative;
       display: grid;
       place-items: center;
-      background:
-        radial-gradient(circle, rgba(255,255,255,0.86) 0 52%, transparent 53%),
-        conic-gradient(
-          from 0deg,
-          var(--text) 0 42deg,
-          transparent 42deg 58deg,
-          var(--text) 58deg 114deg,
-          transparent 114deg 132deg,
-          var(--text) 132deg 198deg,
-          transparent 198deg 215deg,
-          var(--text) 215deg 300deg,
-          var(--accent) 300deg 330deg,
-          transparent 330deg 345deg,
-          var(--text) 345deg 360deg
-        );
-      box-shadow: 0 22px 60px rgba(0,0,0,0.12);
+      filter: drop-shadow(0 22px 42px rgba(0,0,0,0.14));
+      will-change: transform;
     }
-
-    .orb::before {
-      content: "";
+    
+    .logo-ring,
+    .logo-core {
       position: absolute;
-      inset: 35px;
-      border-radius: 50%;
-      border: 2px solid rgba(0,0,0,0.11);
-      background: var(--paper);
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      pointer-events: none;
+      user-select: none;
     }
-
-    .orb::after {
-      content: "";
-      position: absolute;
-      inset: 74px;
-      border-radius: 50%;
-      border-right: 10px solid var(--accent);
-      border-top: 2px solid transparent;
-      transform: rotate(18deg);
-      opacity: 0.9;
+    
+    .logo-ring {
+      z-index: 1;
+      transform-origin: center;
+      will-change: transform;
     }
-
-    .zl-big {
-      position: relative;
+    
+    .logo-core {
       z-index: 2;
-      font-size: clamp(84px, 13vw, 150px);
-      font-weight: 1000;
-      letter-spacing: -0.18em;
-      font-style: italic;
-      transform: translateX(-10px);
-    }
-
-    .zl-big span {
-      color: var(--accent);
-    }
-
-    .scan-lines {
-      position: absolute;
-      right: 6%;
-      bottom: 18%;
-      display: flex;
-      gap: 8px;
-      z-index: 3;
-    }
-
-    .scan-lines i {
-      display: block;
-      width: 10px;
-      height: 44px;
-      background: var(--text);
-      transform: skewX(-25deg);
     }
 
     .tech-strip {
@@ -723,7 +678,6 @@
 
       <div class="status-row">
         <div class="pill"><span class="dot"></span> Currently prototyping</div>
-        <div class="pill">White PCB / Black Silkscreen</div>
       </div>
     </div>
 
@@ -853,6 +807,7 @@
   <script>
     const header = document.querySelector("header");
     const orb = document.querySelector(".orb");
+    const logoRing = document.querySelector(".logo-ring");
     const techStrip = document.querySelector(".tech-strip");
     const animatedElements = document.querySelectorAll(".fade, .card, .log-item");
   
@@ -893,8 +848,12 @@
   
       if (orb) {
         const movement = Math.sin(scrollY * 0.006) * 18;
+        orb.style.transform = `translateY(${movement}px)`;
+      }
+      
+      if (logoRing) {
         const rotate = scrollY * 0.035;
-        orb.style.transform = `translateY(${movement}px) rotate(${rotate}deg)`;
+        logoRing.style.transform = `rotate(${rotate}deg)`;
       }
   
       if (techStrip) {
