@@ -71,38 +71,14 @@
       color: var(--text);
     }
 
-    .mini-mark {
-      width: 44px;
-      height: 44px;
-      border: 3px solid var(--text);
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      position: relative;
-      font-weight: 900;
-      font-size: 13px;
-      letter-spacing: -0.12em;
-      background: var(--bg);
+    .mini-logo {
+      width: 52px;
+      height: 52px;
+      object-fit: contain;
+      flex: 0 0 auto;
+      transition: transform 0.25s ease;
     }
 
-    .mini-mark::before,
-    .mini-mark::after {
-      content: "";
-      position: absolute;
-      width: 9px;
-      height: 3px;
-      background: var(--bg);
-      left: 50%;
-      transform: translateX(-50%);
-    }
-
-    .mini-mark::before {
-      top: -3px;
-    }
-
-    .mini-mark::after {
-      bottom: -3px;
-    }
 
     .brand-name {
       font-size: 18px;
@@ -552,7 +528,7 @@
       box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
     }
     
-    header.compact .mini-mark {
+    header.compact .mini-logo {
       transform: scale(0.86);
     }
     
@@ -560,7 +536,7 @@
       letter-spacing: 0.24em;
     }
     
-    .mini-mark,
+    .mini-logo,
     .brand-name,
     .orb,
     .tech-strip,
@@ -655,7 +631,7 @@
 <body>
   <header>
     <a class="brand" href="#home">
-      <div class="mini-mark">ZL</div>
+      <img class="mini-logo" src="logo-full.png" alt="Zhander Labs logo" />
       <div class="brand-name">ZHANDER LABS</div>
     </a>
 
